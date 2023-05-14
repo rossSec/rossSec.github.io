@@ -1,3 +1,8 @@
+---
+title: PG Practice | Nukem
+published: true
+---
+
 # Foothold
 ![](assets/nukem/p80.png)
 We can see that the website is running wordpress, lets run an enumeration script using wpscan.
