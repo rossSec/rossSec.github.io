@@ -1,5 +1,5 @@
 # Foothold
-![c7fca070d76cd13ae4f08a547f99b271.png](:/515a55038fc24fc0be28c580d46a9d9a)
+![](assets/nukem/p80.png)
 We can see that the website is running wordpress, lets run an enumeration script using wpscan.
 
 ```
@@ -38,7 +38,7 @@ wpscan --url http://$IP -e
 
 After searching for an exploit for each plugin I found that simple-file-list v1.2.2 was vulnerable to pre-auth RCE, see more here: https://www.exploit-db.com/exploits/48979. From this a reverse shell was granted.
 
-![3d872b71bf52b36582238c75d15158f6.png](:/42c641b101d24c0b925cf42473ef0dfc)
+![](assets/nukem/shell.png)
 
 # Getting user
 
@@ -60,7 +60,7 @@ Using the credentials found we were able to SSH into commander using the DB pass
 ```
 ssh commander@$IP
 ```
-![79e9e1a9ade32d84f616e00006b361a3.png](:/9d437a45ca1b4cf69b34a5909db5fd0b)
+![](assets/nukem/user.png)
 
 The OS running also appears to be a version of arch Linux.
 
@@ -92,6 +92,5 @@ The way to root on this machine was relatively simple, you overwrite the /etc/su
 sudo /bin/bash
 ```
 
-![77aea311410f46bd0fc73de5fac582b9.png](:/ebeaaf1033fd4346bd4acb5fae005495)
-
+![](assets/nukem/root.png)
 Overrall not much was learnt from this box for me at least, however it was fun.
