@@ -1,4 +1,4 @@
-# Nukem Proving Grounds Practice
+# PG Practice | Nukem
 
 ## Foothold
 ![c7fca070d76cd13ae4f08a547f99b271.png](:/515a55038fc24fc0be28c580d46a9d9a)
