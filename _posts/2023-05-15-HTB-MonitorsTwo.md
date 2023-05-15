@@ -1,4 +1,4 @@
-![](assets/pwned.png)
+![](assets/monitorstwo/pwned.png)
 
 # Monitors Two Writeup (Easy HTB Machine)
 
@@ -35,7 +35,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
 Viewing port 80 shows the following:
-![](assets/cactilogin.png)
+![](assets/monitorstwo/cactilogin.png)
 From this we can understand that 'Cacti Version 1.2.22' is running, searching for an exploit to use against this service, it was found to be vulnerable to 'CVE-2022-46169'
 
 Starting an NC 'NetCat' Listener on Port '4444' and developing a custom python script and running it against the service resulted in a reverse shell into the machine.
@@ -76,7 +76,7 @@ INSERT INTO user_auth VALUES (3,'guest','43e9a4ab75570f5b',0,'Guest Account','',
 Cracking the hashes in hashcat resulted in both of them containing the password 'admin', unfortunately using these credentials did not prove useful anywhere.
 
 It was at this point it was discovered we were in some sort of container as the home directories did not really contain much, proceeding from this I discovered '/entrypoint.sh' which contained the following:
-![](assets/entry.png)
+![](assets/monitorstwo/entry.png)
 
 Logging into the mySQL database resulted in even more password hashes and the discovery of the user 'marcus'
 
@@ -112,11 +112,11 @@ The IP range '172.19.0.x' was discovered so a ping sweep was done to try and dis
 
 From the credentials recieved earlier an SSH attempt was attempted using 'marcus:funkymonkey'.
 
-![](assets/user.png)
+![](assets/monitorstwo/user.png)
 
 As you can see access to the 'marcus' user was granted and we could grab the user.txt.
 
-![](assets/userflag.png)
+![](assets/monitorstwo/userflag.png)
 
 After some enumeration on the SSH marcus had some mail from an administrator disclosing some CVE's they were concerned about. '/var/mail/marcus'
 
@@ -155,7 +155,7 @@ The SUID bit '/sbin/capsh' was discovered and it was exploited via the following
 /sbin/capsh --gid=0 --uid=0 --
 ```
 
-![](assets/root1.png)
+![](assets/monitorstwo/root1.png)
 Shoutout to GTFO Bins for the method: https://gtfobins.github.io/gtfobins/capsh/#suid
 
 From here I decided to fully exploit via the method discovered in the cyberark article:
@@ -196,7 +196,7 @@ findmnt
 ```
 
 Discover the docker container:
-![](assets/docke.png)
+![](assets/monitorstwo/docke.png)
 
 Go to the merged directory:
 
@@ -206,7 +206,7 @@ cd /var/lib/docker/overlay2/c41d5854e43bd996e128d647cb526b73d04c9ad6325201c85f73
 
 Exploit and get root:
 
-![](assets/root.png)
+![](assets/monitorstwo/root.png)
 
 Now the machine is rooted, overall I enjoyed this machine as the 2nd privilege escalation path was something I have never ran into before.
 
