@@ -162,7 +162,7 @@ From here I decided to fully exploit via the method discovered in the cyberark a
 
 Go to the / directory and create a folder called 'demo' and within it a file called 'setuid.c'
 
-```
+```cpp
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
