@@ -13,7 +13,7 @@ A basic TCP port scan was done with NMAP to enumerate running services on the ma
 sudo nmap -sS -sV -A -p- 10.10.86.141 -oA nmap
 ```
 The NMAP Output revealed that port 25,80,445 and 3389 were running:
-![NMAP Scan Result](/assets/posts/job/nmapscanresult.png)
+![NMAP Scan Result](../assets/posts/job/nmapscanresult.png)
 
 ## Discovery of an email address
 
