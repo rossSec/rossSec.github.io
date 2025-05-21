@@ -84,7 +84,7 @@ With our completed payload, we have to convert it into UTF-16LE and then base64 
 
 ## Root Flag
 
- ### LABDC.lab.trusted.vl Enumeration and Post-Exploitation
+### LABDC.lab.trusted.vl Enumeration and Post-Exploitation
  We can then gather domain information using sliver’s armory implementation of sharphound:
  ```bash
  sharp-hound-4 -s -t 300 -- -c all,gpolocalgroup
