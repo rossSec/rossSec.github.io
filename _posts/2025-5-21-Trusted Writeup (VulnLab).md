@@ -26,7 +26,7 @@ sudo nmap -sS -sV -A -p- --min-rate 2500 -iL hosts.txt -oA nmapScan --disable-ar
 ## User Flag
 
 ### HTTP Enumeration
-From the results, it is clear that these machines are both Domain Controllers, I’ll target the ‘labdc.trusted.vl’ DC first, by browsing to the site on Port 80 HTTP: 
+From the results, it is clear that these machines are both Domain Controllers (DCs). I’ll target the ‘labdc.lab.trusted.vl’ DC first, by browsing to the site on Port 80 HTTP: 
 ![xampp](../assets/posts/trusted/xampp.png)
 The site showcases a default XAMPP webpage, we can perform directory brute-forcing using feroxbuster in an attempt to uncover any hidden directories that exist:
 ```bash
